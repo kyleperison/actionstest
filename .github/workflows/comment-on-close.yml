@@ -3,28 +3,23 @@ name: Comment on Closed Issue
 on:
   issues:
     types:
-      - closed
+      - opened
 
 jobs:
-  comment-on-closed-issue:
+  label_issue:
     runs-on: ubuntu-latest
-
+    permissions:
+      issues: write
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Comment on closed issue
-        uses: actions/github-script@v5
+      - env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          gh issue edit $ISSUE_URL --add-label "bug"
+      - name: Add comment
+        uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const issueNumber = context.payload.issue.number;
-            const commentBody = 'This issue has been closed. Thank you!';
-            
-            const octokit = new github.getOctokit(github.token);
-            await octokit.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-              body: commentBody,
-            });
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            This issue is available for anyone to work on. **Make sure to reference this issue in your pull request.** :sparkles: Thank you for your contribution! :sparkles:      
+          
