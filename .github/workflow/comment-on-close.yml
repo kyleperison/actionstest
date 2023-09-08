@@ -1,0 +1,30 @@
+name: Comment on Closed Issue
+
+on:
+  issues:
+    types:
+      - closed
+
+jobs:
+  comment-on-closed-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Comment on closed issue
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = context.payload.issue.number;
+            const commentBody = 'This issue has been closed. Thank you!';
+            
+            const octokit = new github.getOctokit(github.token);
+            await octokit.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: commentBody,
+            });
