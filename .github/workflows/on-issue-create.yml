@@ -13,10 +13,8 @@ jobs:
     steps:
       - uses: actions/github-script@v6
         with:
-          vars: |
-            label: ${{ github.event.label.name }}
-            test: 'testing'
           script: |
+            const test = 'thisisatest'
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
