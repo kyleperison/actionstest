@@ -19,4 +19,4 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            This is a ${{ OUTPUT1 }} Issue
+            This is a ${{ $OUTPUT1 }} Issue
