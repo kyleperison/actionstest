@@ -9,6 +9,8 @@ jobs:
   like-pizza:
     runs-on: ubuntu-latest
     if: ${{ github.event.comment.body == 'I like pizza'}}
+    permissions:
+      issues: write
     steps:
       - name: Like pizza
         uses: actions/github-script@v6
