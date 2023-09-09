@@ -5,6 +5,9 @@ on:
     types:
       - opened
 
+env:
+  First_Name: Mona
+
 jobs:
   comment:
     runs-on: ubuntu-latest
@@ -14,10 +17,9 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const test = 'thisisatest'
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting! ${{test}}'
+              body: '👋 Thanks for reporting! ${{First_Name}}'
             })
