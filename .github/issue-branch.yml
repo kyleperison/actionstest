@@ -1,0 +1,3 @@
+branchName: full
+autoCloseIssue: true
+defaultBranch: 'development'
