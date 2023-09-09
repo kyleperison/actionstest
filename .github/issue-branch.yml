@@ -1,7 +1,7 @@
-branches:
-  label: '*'
-  name: main
-  label: bug
-  prefix: bug/
+# branches:
+  # label: '*'
+  # name: main
+  # label: bug
+  # prefix: bug/
 branchName: '${issue.number}-${issue.title}'
 mode: chatops
