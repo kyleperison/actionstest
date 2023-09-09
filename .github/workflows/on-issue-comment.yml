@@ -11,7 +11,7 @@ jobs:
     if: ${{ github.event.comment.body == 'I like pizza'}}
     steps:
       - name: Like pizza
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         with:
           script: |
             const {owner, repo} = context.issue
