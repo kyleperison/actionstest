@@ -1,22 +1,16 @@
-name: Create Branch
-
 on:
-  # The issues event below is only needed for the default (auto) mode,
-  # you can remove it otherwise
-  issues:
-    types: [ assigned ]
-  # The issue_comment event below is only needed for the ChatOps mode,
-  # you can remove it otherwise
   issue_comment:
-    types: [ created ]
-  pull_request:
-    types: [ closed ]
-
+    types:
+      - created
 jobs:
-  create_issue_branch_job:
+  create-branch:
     runs-on: ubuntu-latest
+    # if: ${{ github.event.comment.body == 'Create Branch'}}
+    permissions:
+      issues: write
+      repository-projects: write
     steps:
-      - name: Create Issue Branch
-        uses: robvanderleek/create-issue-branch@main
+      - name: Comment Start
+        run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
