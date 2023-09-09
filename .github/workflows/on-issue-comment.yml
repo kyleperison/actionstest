@@ -10,12 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Issue Branch
-        uses: peterjgrainger/action-create-branch@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          branch: 'release-notes'
-          sha: '${{ github.event.pull_request.head.sha }}'
-        # uses: robvanderleek/create-issue-branch@main
+        uses: robvanderleek/create-issue-branch@main
         # env:
           #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
