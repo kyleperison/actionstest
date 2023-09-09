@@ -1,0 +1,15 @@
+name: Init Pipeline On Issue Create
+
+on:
+  issues:
+    types:
+      - assigned
+
+jobs:
+  create_issue_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Issue Branch
+        uses: robvanderleek/create-issue-branch@main
+        env:
+          GH_TOKEN: ${{ github.token }}
