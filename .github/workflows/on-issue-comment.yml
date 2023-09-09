@@ -6,13 +6,13 @@ on:
       - created
 
 jobs:
-  like-pizza:
+  create-branch:
     runs-on: ubuntu-latest
-    if: ${{ github.event.comment.body == 'I like pizza'}}
+    if: ${{ github.event.comment.body == 'Create Branch'}}
     permissions:
       issues: write
     steps:
-      - name: Like pizza
+      - name: Comment Start
         uses: actions/github-script@v6
         with:
           script: |
@@ -20,5 +20,9 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: '👋 I like pizza too'
+                body: 'Creating branch now...'
               })
+      - name: Create Branch
+        uses: robvanderleek/create-issue-branch@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
