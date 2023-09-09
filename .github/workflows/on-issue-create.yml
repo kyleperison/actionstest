@@ -15,7 +15,7 @@ jobs:
         with:
           vars: |
             label: ${{ github.event.label.name }}
-            test: testing
+            test: 'testing'
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -23,18 +23,3 @@ jobs:
               repo: context.repo.repo,
               body: '👋 Thanks for reporting! ${{test}}'
             })
-  comment_label:
-    if: github.event.label.name == 'bug'
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    steps:
-      - name: Add comment
-        uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
-        with:
-          vars: |
-            label: ${{ github.event.label.name }}
-            test: testing
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            This is a {{ label }} Issue {{ testing }}
