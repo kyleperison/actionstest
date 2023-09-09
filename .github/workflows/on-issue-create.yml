@@ -7,9 +7,12 @@ on:
 
 jobs:
   create_issue_branch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Issue Branch
-        uses: robvanderleek/create-issue-branch@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      runs-on: ubuntu-latest
+      permissions:
+        issues: write
+      steps:
+        - name: Create Issue Branch
+        - env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            ISSUE_URL: ${{ github.event.issue.html_url }}
+          uses: robvanderleek/create-issue-branch@main  
