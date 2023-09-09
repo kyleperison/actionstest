@@ -12,7 +12,20 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: Create Branch
-        uses: robvanderleek/create-issue-branch@main
+      - name: Comment Start
+        uses: actions/github-script@v6
+        with:
+          script: |
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Creating branch now...'
+              })
+      - name: Create Issue Branch
+        id: Create_Issue_Branch
+        uses: robvanderleek/create-issue-branch@issue-201-Feature_request_provide_the_final_branch_name_as_an_action_output
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Echo branch name
+        run: echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
