@@ -1,2 +1,5 @@
+branches:
+  label: '*'
+  name: main
 branchName: '${issue.number}-${issue.title}'
 mode: chatops
