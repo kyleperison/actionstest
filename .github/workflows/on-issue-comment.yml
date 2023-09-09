@@ -1,16 +1,14 @@
+name: Create Branch For Issue
+
 on:
   issue_comment:
-    types:
-      - created
+    types: [ created ]
+
 jobs:
-  create-branch:
+  create_issue_branch_job:
     runs-on: ubuntu-latest
-    # if: ${{ github.event.comment.body == 'Create Branch'}}
-    permissions:
-      issues: write
-      repository-projects: write
     steps:
-      - name: Comment Start
-        run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+      - name: Create Issue Branch
+        uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
