@@ -6,25 +6,10 @@ on:
       - created
 
 jobs:
-  create-branch:
+  create_issue_branch_job:
     runs-on: ubuntu-latest
-    # if: ${{ github.event.comment.body == 'Create Branch'}}
-    permissions:
-      issues: write
-      repository-projects: write
     steps:
-      # - name: Comment Start
-        # uses: actions/github-script@v6
-        # with:
-          # script: |
-              # github.rest.issues.createComment({
-                # issue_number: context.issue.number,
-                # owner: context.repo.owner,
-                # repo: context.repo.repo,
-                # body: 'Creating branch now...'
-              # })
       - name: Create Issue Branch
-        id: Create_Issue_Branch
         uses: robvanderleek/create-issue-branch@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
