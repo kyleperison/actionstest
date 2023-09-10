@@ -1,27 +1,30 @@
-name: Create Branch From Development For Issue
+name: Create Bug Branch 🐛🌿
 
 on:
   issues:
-    types:
+    types: 
       - assigned
 
+# tasks
 jobs:
   create-branch:
     runs-on: ubuntu-latest
-    # if: contains(github.event.issue.labels.*.name, 'bug') && github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
+    # run if issue was labeled or created
+    if: contains(github.event.issue.labels.*.name, 'bug') && github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
     steps:
+
       # checkout the code
-      - name: 🛍️ Checkout Code
+      - name: Checkout code 🛍️
         uses: actions/checkout@v2
         
       # create a branch
-      - name: 🌿👆 Create branch and push 
-        run: 
+      - name: Create branch and push 🌿👆
+        run: |
           git checkout production
           git pull origin production
-          git checkout -b "bug/${{ github.event.issue.number }}-${{ github.event.issue.title }}"
-          git push origin "bug/${{ github.event.issue.number }}-${{ github.event.issue.title }}"
+          git checkout -b "bug/${{ github.event.issue.number }}"
+          git push origin "bug/${{ github.event.issue.number }}"
 
       # print
-      - name: 🎉 Completed
+      - name: Completed!! 🎉
         run: echo Successfully Created a Branch! 🎊
