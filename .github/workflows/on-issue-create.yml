@@ -5,9 +5,6 @@ on:
     types:
       - opened
 
-env:
-  First_Name: Mona
-
 jobs:
   comment:
     runs-on: ubuntu-latest
@@ -21,5 +18,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting! {{$First_Name}}'
+              body: '👋 Thanks for reporting!'
             })
