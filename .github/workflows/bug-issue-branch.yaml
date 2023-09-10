@@ -72,6 +72,7 @@ jobs:
       # delete remote branch
       - name: Delete branch 🗑️
         run: |
+          branch_name="bug-${{ github.event.issue.number }}"
           git branch -d $branch_name
           git push --delete origin $branch_name
 
