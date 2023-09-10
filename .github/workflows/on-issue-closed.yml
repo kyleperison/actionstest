@@ -19,7 +19,8 @@ jobs:
       # check if the branch exists
       - name: Check if branch exists in remote 🤔
         run: |
-          if git ls-remote --heads origin "bug/${{ github.event.issue.number }}" | grep -q "bug/${{ github.event.issue.number }}"; then
+          branch_name="bug/${{ github.event.issue.number }}-${{ github.event.issue.title }}"
+          if git ls-remote --heads origin $branch_name | grep -q $branch_name; then
             echo "🌎 Branch exists in remote!"
           else
             echo "❌ Branch does not exist in remote!"
@@ -29,7 +30,7 @@ jobs:
       # merge branch
       - name: 🌿🔀 Merge issue branch to dev
         run: |
-          branch_name="bug/${{ github.event.issue.number }}"
+          branch_name="bug/${{ github.event.issue.number }}-${{ github.event.issue.title }}"
           git checkout -b $branch_name
           git pull origin $branch_name
           git merge production
