@@ -3,20 +3,25 @@ name: Init Pipeline On Issue Create
 on:
   issues:
     types:
-      - opened
+      - assigned
 
 jobs:
-  comment:
+  create-branch:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
+    # if: contains(github.event.issue.labels.*.name, 'bug') && github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
     steps:
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
+      # checkout the code
+      - name: 🛍️ Checkout Code
+        uses: actions/checkout@v2
+        
+      # create a branch
+      - name: 🌿👆 Create branch and push 
+        run: |
+          git checkout development
+          git pull origin development
+          git checkout -b "bug-${{ github.event.issue.number }}-${{ github.event.issue.title }}"
+          git push origin "bug-${{ github.event.issue.number }}-${{ github.event.issue.title }}"
+
+      # print
+      - name: 🎉 Completed
+        run: echo Successfully Created a Branch! 🎊
