@@ -10,7 +10,7 @@ jobs:
   create-branch:
     runs-on: ubuntu-latest
     # run if issue was labeled or created
-    if: contains(github.event.issue.labels.*.name, 'bug') && github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
+    # if: contains(github.event.issue.labels.*.name, 'bug') && github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
     steps:
 
       # checkout the code
