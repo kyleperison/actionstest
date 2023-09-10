@@ -1,4 +1,4 @@
-name: Init Pipeline On Issue Create
+name: Create Branch From Development For Issue
 
 on:
   issues:
