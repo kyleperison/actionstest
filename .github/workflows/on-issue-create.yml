@@ -20,7 +20,7 @@ jobs:
       # create a branch
       - name: Create branch and push 🌿👆
         run: |
-          branch_name="bug/${{ github.event.issue.number }}"
+          branch_name="bug/${{ github.event.issue.number }}-${{ github.event.issue.title }}"
           
           git checkout production
           git pull origin production
