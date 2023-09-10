@@ -32,9 +32,8 @@ jobs:
         run: |
           branch_name="bug/${{ github.event.issue.number }}-${{ github.event.issue.title }}"
           git checkout -b $branch_name
-          git config --global pull.ff only
           git pull origin $branch_name
-          git merge production
+          git merge production --no-ff
           git push origin $branch_name
 
       # delete remote branch
