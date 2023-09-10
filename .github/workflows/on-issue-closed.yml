@@ -31,6 +31,7 @@ jobs:
         run: |
           branch_name="bug-${{ github.event.issue.number }}"
           git checkout -b $branch_name
+          git pull origin $branch_name
           git merge production
           git push origin $branch_name
 
