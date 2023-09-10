@@ -1,0 +1,45 @@
+name: Close Issue Merge With Development Branch 🐛🌿
+
+on:
+  issues:
+    types: 
+      - closed
+
+jobs:
+  merge-issue-branch:
+    runs-on: ubuntu-latest
+    # runs if the issue is closed
+    if: github.event.action == 'closed'
+    steps:
+    
+      # checkout the code
+      - name: 🛍️ Checkout code
+        uses: actions/checkout@v2
+      
+      # check if the branch exists
+      - name: Check if branch exists in remote 🤔
+        run: |
+          if git ls-remote --heads origin "bug-${{ github.event.issue.number }}" | grep -q "bug-${{ github.event.issue.number }}"; then
+            echo "🌎 Branch exists in remote!"
+          else
+            echo "❌ Branch does not exist in remote!"
+            exit 1
+          fi
+
+      # merge branch
+      - name: 🌿🔀 Merge issue branch to dev
+        run: |
+          branch_name="bug-${{ github.event.issue.number }}"
+          git checkout -b $branch_name
+          git merge production
+          git push origin $branch_name
+
+      # delete remote branch
+      - name: 🗑️ Delete branch
+        run: |
+          git branch -d $branch_name
+          git push --delete origin $branch_name
+
+      # print
+      - name: 🎉 Completed!
+        run: echo Successfully Merged the Branch! 🎊
